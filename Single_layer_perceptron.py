@@ -5,7 +5,7 @@ import matplotlib.pyplot as mpl
 import math
 
 # reading the data of features of apple and pear
-path = r'C:\Users\Harjeet\Downloads\Book3_ori.csv'
+path = r'/home/harjeet_singh/Documents/book.csv'
 data_l = pd.read_csv(path)
 data = np.array(data_l)
 m,n = data.shape
@@ -49,17 +49,41 @@ def activation_func(W1, W2, B, l_r):                 # this function is calculat
     return W1, W2, B, Z         # returning updated values
 
 # The code will run from here :(
-
+t = np.linspace(-1,1,m)
 i = 0
 pl_z = np.array([])
-for i in range(m):
-    print("---------------------------------iteration", i,"--------------------------------")
+
+for i in range(0, m-3):
+    print(data[i])
+    print("---------------------------------data "
+          "", i,"--------------------------------")
     init_val = "initial parameters are : ", "W1 = ", W1, "W2 = ", W2, "B = ", B
     print("adjsuting weights")
     W1_up, W2_up, B_up, Z = activation_func(W1, W2, B, l_r)
     W1 = np.round(W1_up, 4)
     W2 = np.round(W2_up, 4)
     B = np.round(B_up, 4)
-
 print(init_vals)
-print("final weights are", "W1 = ", W1, "W2 = ", W2, "B = ", B)   # printing final weights for whole dataset
+print("final weights are", "W1 = ", W1, "W2 = ", W2, "B = ", B, )   # printing final weights for whole dataset
+
+
+print("*****************************************************************")
+print("*****************************************************************")
+print("********test the calculated weights on different data************")
+print("*****************************************************************")
+print("*****************************************************************")
+for k in range(m-3,m):
+    print("given data", data[k])
+    print("testing the weights:")
+    Z = W1 * data[k, 0] + W2 * data[k, 1] + B
+    Z = np.round(Z, 5)
+    error = Z - data[k, 2]
+    print("weighted Sum", Z, "error:", error)
+    if error > 0 :
+        print ("corect prediction")
+    else :
+        print("bad parameters")
+
+mpl.show()
+
+
